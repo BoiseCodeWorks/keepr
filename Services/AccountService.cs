@@ -2,7 +2,7 @@ using System;
 using Keepr.Repositories;
 using Keepr.Models;
 
-namespace Keepr
+namespace Keepr.Services
 {
     public class AccountService
     {
