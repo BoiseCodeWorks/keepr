@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Keepr.Repositories;
 using Keepr.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,16 +32,15 @@ namespace Keepr
         public void ConfigureServices(IServiceCollection services)
         {
             //ADD USER AUTH through JWT
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/Account/Login";
-                    options.Events.OnRedirectToLogin = (context) =>
-                      {
-                          context.Response.StatusCode = 401;
-                          return Task.CompletedTask;
-                      };
-                });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
+                options.Audience = Configuration["Auth0:Audience"];
+            });
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsDevPolicy", builder =>
@@ -61,8 +61,7 @@ namespace Keepr
             services.AddScoped<IDbConnection>(x => CreateDbConnection());
 
             //NOTE REGISTER SERVICES
-            services.AddTransient<AccountService>();
-            services.AddTransient<AccountRepository>();
+            services.AddTransient<KeepService>();
         }
 
         private IDbConnection CreateDbConnection()
@@ -85,10 +84,11 @@ namespace Keepr
             }
 
             app.UseHttpsRedirection();
-            app.UseAuthentication();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseEndpoints(endpoints =>
