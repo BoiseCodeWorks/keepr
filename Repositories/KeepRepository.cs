@@ -26,9 +26,9 @@ namespace Keepr.Repositories
         {
             string sql = @"
             INSERT INTO Keeps
-            (id, name, description, userId, img, isPrivate)
+            (name, description, userId, img, isPrivate)
             VALUES
-            (@Id, @Name, @Description, @UserId, @IsPrivate)
+            (@Name, @Description, @UserId, @Img, @IsPrivate)
             ";
             _db.Execute(sql, KeepData);
         }

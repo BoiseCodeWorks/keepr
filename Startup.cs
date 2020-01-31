@@ -60,8 +60,9 @@ namespace Keepr
             //CONNECT TO DB
             services.AddScoped<IDbConnection>(x => CreateDbConnection());
 
-            //NOTE REGISTER SERVICES
+            //NOTE REGISTER SERVICES & REPOSITORIES
             services.AddTransient<KeepService>();
+            services.AddTransient<KeepRepository>();
         }
 
         private IDbConnection CreateDbConnection()
