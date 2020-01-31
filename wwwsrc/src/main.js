@@ -1,19 +1,27 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import AuthService from "./AuthService"
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
+import { Auth0Plugin } from "@bcwdev/auth0-vue";
+import { domain, clientId, audience } from "./authconfig";
 
-//Vue.config.productionTip = false
+Vue.use(Auth0Plugin, {
+  domain,
+  clientId,
+  audience,
+  onRedirectCallback: appState => {
+    router.push(
+      appState && appState.targetUrl
+        ? appState.targetUrl
+        : window.location.pathname
+    );
+  }
+});
 
-async function init() {
-  let user = await AuthService.Authenticate()
-  if (user) { store.commit("setUser", user) }
-  new Vue({
-    router,
-    store,
-    render: h => h(App)
-  }).$mount('#app')
-}
-init()
-
+new Vue({
+  router,
+  store,
+  render: function(h) {
+    return h(App);
+  }
+}).$mount("#app");
