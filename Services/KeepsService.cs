@@ -20,8 +20,7 @@ namespace Keepr.Services
 
         public Keep Create(Keep newKeep)
         {
-            newKeep.Id = _repo.Create(newKeep);
-            return newKeep;
+            return _repo.Create(newKeep);
         }
     }
 }

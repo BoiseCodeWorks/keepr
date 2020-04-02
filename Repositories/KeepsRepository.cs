@@ -21,7 +21,7 @@ namespace Keepr.Repositories
             return _db.Query<Keep>(sql);
         }
 
-        internal int Create(Keep KeepData)
+        internal Keep Create(Keep KeepData)
         {
             throw new NotImplementedException();
         }
