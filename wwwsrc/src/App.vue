@@ -20,5 +20,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "./assets/_variables.scss";
+@import "bootstrap";
+@import "./assets/_overrides.scss";
 </style>

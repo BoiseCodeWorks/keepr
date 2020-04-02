@@ -51,11 +51,11 @@ What this site is already pretty if you follow the mocks :wink: Make sure the fe
 #### Visualization:
 
 - Visitors can see all public keeps (login not required)
-- Anytime a `keep` is viewed or `kept in a vault` the relevant count should go up
-- Users have a dashboard to see all their keeps and vaults
+- Keeps are displayed in a card like format with all data rendered
+- Users have a dashboard route to see all their keeps and vaults
 - Users can only see vaults they created
 - Users can View all the keeps in a given vault
-- Keeps show the three clicable buttons (View, Keep, Share) with affect each of the counts
+- Anytime a `keep` is viewed or `kept in a vault` the relevant count should go up
 
 #### Functionality:
 
@@ -80,8 +80,7 @@ What this site is already pretty if you follow the mocks :wink: Make sure the fe
 	<img src="keepr-signin.jpg" style="width: 80%">
 	<hr/>
 	<img src="keepr-keep-dashboard.jpg" style="width: 80%">
-	<hr/
-	>
+	<hr/>
 	<img src="keepr-vault-dashboard.jpg" style="width: 80%">
 </div>
 
